@@ -70,10 +70,6 @@ export default function LetterList() {
     getRandomWord();
   };
 
-  if (word.split("").every((letter) => guessedLetters.includes(letter))) {
-    return <h1>You Win!</h1>;
-  }
-
   return (
     <Flex
       flexDirection="column"
@@ -84,6 +80,23 @@ export default function LetterList() {
     >
       <h2>Your attempts: {attempt}</h2>
       <Word word={word.split("")} guessedLetters={guessedLetters} />
+      {word.split("").every((letter) => guessedLetters.includes(letter)) ? (
+        <>
+          <h2>You Win!</h2>
+          <Heading
+            as="h2"
+            fontSize="20"
+            fontWeight="400"
+            onClick={restartGame}
+            cursor="pointer"
+            border="1px solid black"
+            borderRadius="5"
+          >
+            <MdRestartAlt size="35" color="white" />
+          </Heading>
+        </>
+      ) : null}
+
       {attempt < 1 ? (
         <Flex flexDir="column" alignItems="center">
           <Heading as="h2" fontSize="20" fontWeight="400">
