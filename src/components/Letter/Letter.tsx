@@ -19,8 +19,8 @@ export default function Letter({
   isGameOver,
 }: LetterProps) {
   const clickButton = (e: BaseSyntheticEvent) => {
-    e.target.disabled = true;
     addGuessedLetters(e.target.innerText);
+
     if (!word.includes(e.target.innerText)) {
       onDecreaseAttempt();
     }
