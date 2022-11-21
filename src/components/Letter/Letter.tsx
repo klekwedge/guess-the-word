@@ -7,6 +7,7 @@ interface LetterProps {
   onDecreaseAttempt: () => void;
   addGuessedLetters: (guessedLetter: string) => void;
   guessedLetters: string[];
+  isGameOver: boolean;
 }
 
 export default function Letter({
@@ -15,6 +16,7 @@ export default function Letter({
   onDecreaseAttempt,
   addGuessedLetters,
   guessedLetters,
+  isGameOver,
 }: LetterProps) {
   const clickButton = (e: BaseSyntheticEvent) => {
     e.target.disabled = true;
@@ -24,8 +26,15 @@ export default function Letter({
     }
   };
 
+  console.log(isGameOver);
+
   return (
     <Button
+      disabled={
+        guessedLetters.find((item) => item === letter)
+          ? true
+          : false
+      }
       w="10px"
       colorScheme="blue"
       border="1px solid black"
@@ -34,10 +43,9 @@ export default function Letter({
         backgroundColor:
           guessedLetters.find((item) => item === letter) &&
           word.includes(letter)
-            ? "#00C600"
+            ? "#14e414"
             : "",
       }}
-      disabled={guessedLetters.find((item) => item === letter) ? true : false}
     >
       {letter}
     </Button>

@@ -1,8 +1,11 @@
-import { Box, Flex } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Letter from "../Letter/Letter";
 import Word from "../Word/Word";
+import words from "../../wordsList.json";
+
+import { MdRestartAlt } from "react-icons/md";
 
 const KEYS = [
   "A",
@@ -36,7 +39,16 @@ const KEYS = [
 export default function LetterList() {
   const [attempt, setAttempt] = useState(5);
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
-  const word = "Hello".toUpperCase();
+  const [word, setWord] = useState("");
+  const [isGameOver, setIsGameOver] = useState(false);
+
+  const getRandomWord = () => {
+    setWord(words[Math.floor(Math.random() * words.length)].toUpperCase());
+  };
+
+  useEffect(() => {
+    getRandomWord();
+  }, []);
 
   const decreaseAttempt = () => {
     setAttempt(attempt - 1);
@@ -46,9 +58,17 @@ export default function LetterList() {
     setGuessedLetters([...guessedLetters, guessedLetter]);
   };
 
-  if (attempt < 1) {
-    return <h1>You lose!</h1>;
-  }
+  useEffect(() => {
+    if (attempt < 1) {
+      setIsGameOver(true);
+    }
+  }, [attempt]);
+
+  const restartGame = () => {
+    setGuessedLetters([]);
+    setAttempt(5);
+    getRandomWord();
+  };
 
   if (word.split("").every((letter) => guessedLetters.includes(letter))) {
     return <h1>You Win!</h1>;
@@ -60,11 +80,31 @@ export default function LetterList() {
       alignItems="center"
       justifyContent="center"
       h="100%"
-      gap="50px"
+      gap="30px"
     >
       <h2>Your attempts: {attempt}</h2>
-
       <Word word={word.split("")} guessedLetters={guessedLetters} />
+      {attempt < 1 ? (
+        <Flex flexDir="column" alignItems="center">
+          <Heading as="h2" fontSize="20" fontWeight="400">
+            You lose!
+          </Heading>
+          <Heading as="h2" fontSize="20" fontWeight="400" mb="3">
+            Hidden word: {word}
+          </Heading>
+          <Heading
+            as="h2"
+            fontSize="20"
+            fontWeight="400"
+            onClick={restartGame}
+            cursor="pointer"
+            border="1px solid black"
+            borderRadius="5"
+          >
+            <MdRestartAlt size="35" color="white" />
+          </Heading>
+        </Flex>
+      ) : null}
       <Flex gap="5px" maxW="600px" wrap="wrap">
         {KEYS.map((letter) => (
           <Letter
@@ -74,6 +114,7 @@ export default function LetterList() {
             onDecreaseAttempt={decreaseAttempt}
             addGuessedLetters={addGuessedLetters}
             guessedLetters={guessedLetters}
+            isGameOver={isGameOver}
           />
         ))}
       </Flex>
