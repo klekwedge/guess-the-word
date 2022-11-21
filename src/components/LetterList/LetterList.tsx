@@ -1,11 +1,10 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { MdRestartAlt } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";
 import Letter from "../Letter/Letter";
 import Word from "../Word/Word";
 import words from "../../wordsList.json";
-
-import { MdRestartAlt } from "react-icons/md";
 
 const KEYS = [
   "A",
@@ -68,6 +67,7 @@ export default function LetterList() {
     setGuessedLetters([]);
     setAttempt(5);
     getRandomWord();
+    setIsGameOver(false);
   };
 
   return (

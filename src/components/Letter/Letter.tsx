@@ -31,7 +31,7 @@ export default function Letter({
   return (
     <Button
       disabled={
-        guessedLetters.find((item) => item === letter)
+        isGameOver || guessedLetters.find((item) => item === letter)
           ? true
           : false
       }
