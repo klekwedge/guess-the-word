@@ -1,4 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Letter from "../Letter/Letter";
 
@@ -32,8 +33,17 @@ const KEYS = [
 ];
 
 export default function LetterList() {
+  const [attempt, setAttempt] = useState(5);
+
+  const decreaseAttempt = () => {
+    setAttempt(attempt - 1);
+  };
+
+  console.log(attempt);
+
+  const word = "HELLO";
   return (
-    <Box h="100vh" m='auto'>
+    <Box h="100vh" m="auto">
       <Flex
         gap="5px"
         justifyContent="center"
@@ -42,7 +52,13 @@ export default function LetterList() {
         wrap="wrap"
       >
         {KEYS.map((letter) => (
-          <Letter key={uuidv4()} letter={letter} />
+          <Letter
+            key={uuidv4()}
+            letter={letter}
+            word={word}
+            attempt={attempt}
+            onDecreaseAttempt={decreaseAttempt}
+          />
         ))}
       </Flex>
     </Box>
