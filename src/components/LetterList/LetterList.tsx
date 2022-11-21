@@ -36,6 +36,7 @@ const KEYS = [
 export default function LetterList() {
   const [attempt, setAttempt] = useState(5);
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
+  const word = "Hello".toUpperCase();
 
   const decreaseAttempt = () => {
     setAttempt(attempt - 1);
@@ -49,7 +50,10 @@ export default function LetterList() {
     return <h1>You lose!</h1>;
   }
 
-  const word = "Hello".toUpperCase();
+  if (word.split("").every((letter) => guessedLetters.includes(letter))) {
+    return <h1>You Win!</h1>;
+  }
+
   return (
     <Flex
       flexDirection="column"
