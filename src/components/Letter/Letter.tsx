@@ -4,24 +4,23 @@ import { BaseSyntheticEvent } from "react";
 interface LetterProps {
   letter: string;
   word: string;
-  attempt: number;
   onDecreaseAttempt: () => void;
+  addGuessedLetters: (guessedLetter: string) => void;
+  guessedLetters: string[];
 }
 
 export default function Letter({
   letter,
   word,
-  attempt,
   onDecreaseAttempt,
+  addGuessedLetters,
+  guessedLetters,
 }: LetterProps) {
   const clickButton = (e: BaseSyntheticEvent) => {
-    if (attempt > 1) {
-      e.target.disabled = true;
-      if (word.includes(e.target.innerText)) {
-        e.target.style.backgroundColor = "#00C600";
-      } else {
-        onDecreaseAttempt();
-      }
+    e.target.disabled = true;
+    addGuessedLetters(e.target.innerText);
+    if (!word.includes(e.target.innerText)) {
+      onDecreaseAttempt();
     }
   };
 
@@ -31,8 +30,16 @@ export default function Letter({
       colorScheme="blue"
       border="1px solid black"
       onClick={clickButton}
+      style={{
+        backgroundColor:
+          guessedLetters.find((item) => item === letter) &&
+          word.includes(letter)
+            ? "#00C600"
+            : "",
+      }}
+      disabled={guessedLetters.find((item) => item === letter) ? true : false}
     >
-      {letter.toUpperCase()}
+      {letter}
     </Button>
   );
 }

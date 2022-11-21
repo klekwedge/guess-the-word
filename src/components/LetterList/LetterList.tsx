@@ -5,42 +5,51 @@ import Letter from "../Letter/Letter";
 import Word from "../Word/Word";
 
 const KEYS = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V",
+  "W",
+  "X",
+  "Y",
+  "Z",
 ];
 
 export default function LetterList() {
   const [attempt, setAttempt] = useState(5);
+  const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
   const decreaseAttempt = () => {
     setAttempt(attempt - 1);
   };
 
-  const word = "HELLO";
+  const addGuessedLetters = (guessedLetter: string) => {
+    setGuessedLetters([...guessedLetters, guessedLetter]);
+  };
+
+  if (attempt < 1) {
+    return <h1>You lose!</h1>;
+  }
+
+  const word = "Hello".toUpperCase();
   return (
     <Flex
       flexDirection="column"
@@ -58,8 +67,9 @@ export default function LetterList() {
             key={uuidv4()}
             letter={letter}
             word={word}
-            attempt={attempt}
             onDecreaseAttempt={decreaseAttempt}
+            addGuessedLetters={addGuessedLetters}
+            guessedLetters={guessedLetters}
           />
         ))}
       </Flex>
