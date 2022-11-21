@@ -60,7 +60,7 @@ export default function LetterList() {
     >
       <h2>Your attempts: {attempt}</h2>
 
-      <Word word={word.split("")} />
+      <Word word={word.split("")} guessedLetters={guessedLetters} />
       <Flex gap="5px" maxW="600px" wrap="wrap">
         {KEYS.map((letter) => (
           <Letter
