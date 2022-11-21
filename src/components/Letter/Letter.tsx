@@ -16,15 +16,13 @@ export default function Letter({
 }: LetterProps) {
   const clickButton = (e: BaseSyntheticEvent) => {
     if (attempt > 1) {
+      e.target.disabled = true;
       if (word.includes(e.target.innerText)) {
         e.target.style.backgroundColor = "#00C600";
       } else {
         onDecreaseAttempt();
       }
-
-      e.target.disabled = true;
     }
-
   };
 
   return (
