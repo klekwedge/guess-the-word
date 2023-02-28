@@ -30,7 +30,7 @@
 ### Ссылки
 
 - [Ссылка на проект](https://github.com/klekwedge/guess-the-word)
-- [Деплой](klekwedge-guess-the-word.vercel.app)
+- [Деплой](https://klekwedge-guess-the-word.vercel.app/))
 
 ## Мой процесс
 
