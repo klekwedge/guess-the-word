@@ -1,4 +1,4 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { MdRestartAlt } from "react-icons/md";
 import { v4 as uuidv4 } from "uuid";

@@ -26,14 +26,10 @@ export default function Letter({
     }
   };
 
-  console.log(isGameOver);
-
   return (
     <Button
       disabled={
-        isGameOver || guessedLetters.find((item) => item === letter)
-          ? true
-          : false
+        !!(isGameOver || guessedLetters.find((item) => item === letter))
       }
       w="10px"
       colorScheme="blue"

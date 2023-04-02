@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 
 interface WordProps {
